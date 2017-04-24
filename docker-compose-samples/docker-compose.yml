@@ -6,9 +6,9 @@ services:
     image: my-wordpress-apache-php7.0:wp-4.7.4
     restart: always
     volumes:
-      - ./wordpress:/var/www/html
+      - ./mywpsite:/var/www/html
     environment:
-      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_NAME: mywpsite
       WORDPRESS_DB_PASSWORD: root
     ports:
       - 8080:80
