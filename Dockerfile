@@ -27,6 +27,18 @@ RUN { \
 
 RUN a2enmod rewrite expires
 
+# Generate self-signed certs and enable ssl module
+RUN openssl req \
+    -new \
+    -newkey rsa:2048 \
+    -days 365 \
+    -nodes \
+    -x509 \
+    -subj "/C=DE/ST=Berlin/L=Berlin/O=gesellix/CN=${DOMAIN} CA" \
+    -keyout /etc/ssl/private/ssl-cert-snakeoil.key \
+    -out /etc/ssl/certs/ssl-cert-snakeoil.crt
+RUN a2enmod ssl
+
 # Custom user and group for apache
 RUN sed -i 's/www-data/user/g' /etc/apache2/envvars
 RUN useradd -M -u 1000 user
@@ -34,7 +46,6 @@ RUN chown -R user:user /var/www/html
 RUN service apache2 restart
 
 # Install wp-cli
-
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
