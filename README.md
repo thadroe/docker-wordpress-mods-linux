@@ -18,6 +18,14 @@ Right now I only have the Apache PHP 7.0 one modified. I might add more later.
 
 1. Edit the Dockerfile and docker-entrypoint.sh files with your own username and UID on the following lines
 
+In Dockerfile:
+
+lines 43-45 and 65, change `user` and `1000` to match your own local username and UID
+
+In docker-entrypoint.sh:
+
+Lines 49 and 118, change `user` to your local username.
+
 2. From the directory the Dockerfile and docker-entrypoint.sh are in, run the build. (Make sure docker-entrypoint.sh is executable)
 
 Example:
