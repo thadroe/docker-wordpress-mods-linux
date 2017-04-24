@@ -36,8 +36,9 @@ RUN openssl req \
     -x509 \
     -subj "/C=DE/ST=Berlin/L=Berlin/O=gesellix/CN=${DOMAIN} CA" \
     -keyout /etc/ssl/private/ssl-cert-snakeoil.key \
-    -out /etc/ssl/certs/ssl-cert-snakeoil.crt
+    -out /etc/ssl/certs/ssl-cert-snakeoil.pem
 RUN a2enmod ssl
+RUN a2ensite default-ssl.conf
 
 # Custom user and group for apache
 RUN sed -i 's/www-data/user/g' /etc/apache2/envvars
