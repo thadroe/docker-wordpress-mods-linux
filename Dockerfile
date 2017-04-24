@@ -33,6 +33,12 @@ RUN useradd -M -u 1000 user
 RUN chown -R user:user /var/www/html
 RUN service apache2 restart
 
+# Install wp-cli
+
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
+
 VOLUME /var/www/html
 
 ENV WORDPRESS_VERSION 4.7.4
