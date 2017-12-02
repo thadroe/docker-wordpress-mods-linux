@@ -6,7 +6,7 @@ The problem: if using local volumes on a project directory, the files end up bei
 
 I primarily changed the user and group Apache runs as so it matches the username, group name, UID, and GID of the user on the host sytem, avoiding the need to constantly change permissions.
 
-#### The main differences between this and official are
+#### The main differences between this and official Wordpress images on Docker Hub are:
 
 - Run apache as same UID and GID as user on the local host machine (If you'd like to use this, see below on what to change to match your own system)
 - Includes wp-cli
@@ -32,20 +32,41 @@ Example build where name includes php version and tag contains wp version:
 
 Change the name and tag to suit your preferences.
 
-3. Check the image with `docker image ls`
+3. Check that the image exists with `docker image ls`
 
-To use it with docker-compose, see the corresponding compose files and modify them as you see fit.
+4. Copy the corresponding **docker-compose.yml** file to your project directory and edit the following VIRTUAL_HOST line to whatever you'd like:
 
-For wp-cli you'll need to hop into the container and run it there with:
+~~~~
+VIRTUAL_HOST: mytestsite.local,www.mytestsite.local,gr.mytestsite.local
+~~~~
+
+If you'd prefer to just use 'localhost', delete the VIRTUAL_HOST line
+
+5. Run docker-compose to fire it up
+
+`docker-compose up -d`
+
+6. Open your install
+
+http://mytestsite.local
+http://mytestsite.local:8000 for phpmyadmin
+
+7. For wp-cli you'll need to hop into the container and run it there with:
 
 `docker-compose run wordpress /bin/bash`
 
-Then change to the Apache user with:
+To make that easier, you can create an alias in your ~/.bashrc file to something like:
+
+~~~~
+alias dbash='docker-compose run wordpress /bin/bash
+~~~~
+
+Once in the docker shell, change to the Apache user with:
 
 `su user` (or whatever your username is)
 
-4. Open your install
+From there you can run any wp-cli commands except for `wp db _____`
 
-`http://localhost:8080`
-`https://localhost:4430` 
-`https://localhost:8000` for phpmyadmin
+---
+
+**Note:** Only one instance can be run at a time. See [https://github.com/jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) if you'd like to explore running multiple.

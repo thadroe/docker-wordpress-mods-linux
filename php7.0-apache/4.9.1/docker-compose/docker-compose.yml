@@ -10,16 +10,17 @@ services:
     environment:
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_PASSWORD: root
+      VIRTUAL_HOST: mytestsite.local,www.mytestsite.local
     ports:
-      - 8080:80
-      - 4430:443
+      - 80:80
+      - 443:443
     links:
       - mariadb:mysql
   mariadb:
     image: mariadb:latest
     restart: always
     volumes:
-       - ./mariadb_data:/var/lib/mysql
+      - ./mariadb_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
