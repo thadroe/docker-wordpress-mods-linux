@@ -60,7 +60,7 @@ http://mytestsite.local:8000 for phpmyadmin
 To make that easier, you can create an alias in your ~/.bashrc file to something like:
 
 ~~~~
-alias dbash='docker-compose run wordpress /bin/bash
+alias dbash='docker-compose run wordpress /bin/bash'
 ~~~~
 
 Once in the docker shell, change to the Apache user with:
