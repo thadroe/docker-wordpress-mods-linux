@@ -1,4 +1,4 @@
-### Docker Wordpress Modifications
+### Docker Wordpress Modifications for Linux
 
 Some modifications from the official Wordpress docker repo to suit my own needs developing locally on an Ubuntu host machine.
 
@@ -42,4 +42,10 @@ For wp-cli you'll need to hop into the container and run it there with:
 
 Then change to the Apache user with:
 
-`su user`
+`su user` (or whatever your username is)
+
+4. Open your install
+
+`http://localhost:8080`
+`https://localhost:4430` 
+`https://localhost:8000` for phpmyadmin
