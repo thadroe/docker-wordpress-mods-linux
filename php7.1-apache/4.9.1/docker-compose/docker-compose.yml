@@ -3,12 +3,12 @@ services:
   wordpress:
     depends_on:
       - mariadb
-    image: my-wordpress-apache-php7.0:wp-4.7.4
+    image: custom-wordpress-apache-php7.1:wp-4.9.1
     restart: always
     volumes:
-      - ./mywpsite:/var/www/html
+      - ./public:/var/www/html
     environment:
-      WORDPRESS_DB_NAME: mywpsite
+      WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_PASSWORD: root
     ports:
       - 8080:80
@@ -16,7 +16,7 @@ services:
     links:
       - mariadb:mysql
   mariadb:
-    image: mariadb:10.0.30
+    image: mariadb:latest
     restart: always
     volumes:
        - ./mariadb_data:/var/lib/mysql

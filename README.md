@@ -30,7 +30,7 @@ Lines 49 and 118, change `user` to your local username.
 
 Example:
 
-`sudo docker build -t="my-wordpress-apache-php7.0:wp-4.7.4" .`
+`sudo docker build -t="custom-wordpress-apache-php7.x:wp-4.x.x" .`
 
 Change the name and tag to suit your preferences.
 

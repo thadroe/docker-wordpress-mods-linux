@@ -6,7 +6,7 @@ RUN set -ex; \
 	apt-get update; \
 	apt-get install -y \
 		libjpeg-dev \
-		libpng12-dev \
+		libpng-dev \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
@@ -26,6 +26,8 @@ RUN { \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 RUN a2enmod rewrite expires
+
+# Begin mod
 
 # Generate self-signed certs and enable ssl module
 RUN openssl req \
@@ -51,10 +53,12 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
+# End mod
+
 VOLUME /var/www/html
 
-ENV WORDPRESS_VERSION 4.7.4
-ENV WORDPRESS_SHA1 153592ccbb838cafa1220de9174ec965df2e9e1a
+ENV WORDPRESS_VERSION 4.9.1
+ENV WORDPRESS_SHA1 892d2c23b9d458ec3d44de59b753adb41012e903
 
 RUN set -ex; \
 	curl -o wordpress.tar.gz -fSL "https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz"; \
@@ -62,7 +66,9 @@ RUN set -ex; \
 # upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
 	tar -xzf wordpress.tar.gz -C /usr/src/; \
 	rm wordpress.tar.gz; \
+  # Begin mod
 	chown -R user:user /usr/src/wordpress
+  # End mod
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
