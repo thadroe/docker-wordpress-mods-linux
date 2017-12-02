@@ -34,7 +34,9 @@ Change the name and tag to suit your preferences.
 
 3. Check that the image exists with `docker image ls`
 
-4. Copy the corresponding **docker-compose.yml** file to your project directory and edit the following VIRTUAL_HOST line to whatever you'd like:
+#### To run with docker compose
+
+1. Copy the corresponding **docker-compose.yml** file to your project directory and edit the following VIRTUAL_HOST line to whatever you'd like:
 
 ~~~~
 VIRTUAL_HOST: mytestsite.local,www.mytestsite.local,gr.mytestsite.local
@@ -42,16 +44,16 @@ VIRTUAL_HOST: mytestsite.local,www.mytestsite.local,gr.mytestsite.local
 
 If you'd prefer to just use 'localhost', delete the VIRTUAL_HOST line
 
-5. Run docker-compose to fire it up
+2. Run docker-compose to fire it up
 
 `docker-compose up -d`
 
-6. Open your install
+3. Open your install
 
 http://mytestsite.local
 http://mytestsite.local:8000 for phpmyadmin
 
-7. For wp-cli you'll need to hop into the container and run it there with:
+4. For wp-cli you'll need to hop into the container and run it there with:
 
 `docker-compose run wordpress /bin/bash`
 
