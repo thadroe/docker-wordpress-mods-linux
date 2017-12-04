@@ -18,7 +18,7 @@ I primarily changed the user and group Apache runs as so it matches the username
 
 In Dockerfile:
 
-lines 43-45 and 65, change `user` and `1000` to match your own local username and UID
+lines 43-45 and 65, change `user` and `1000` to match your own local username and UID. You can find this by typing `id`.
 
 In docker-entrypoint.sh:
 
@@ -39,7 +39,7 @@ Change the name and tag to suit your preferences.
 1. Copy the corresponding **docker-compose.yml** file to your project directory and edit the following VIRTUAL_HOST line to whatever you'd like:
 
 ~~~~
-VIRTUAL_HOST: mytestsite.local,www.mytestsite.local,gr.mytestsite.local
+VIRTUAL_HOST: mytestsite.local,www.mytestsite.local
 ~~~~
 
 If you'd prefer to just use 'localhost', delete the VIRTUAL_HOST line
@@ -50,25 +50,23 @@ If you'd prefer to just use 'localhost', delete the VIRTUAL_HOST line
 
 3. Open your install
 
-http://mytestsite.local
+http://mytestsite.local  
 http://mytestsite.local:8000 for phpmyadmin
 
-4. For wp-cli you'll need to hop into the container and run it there with:
+4. For wp-cli, you can run it with (changing 'user' for your own):
 
-`docker-compose run wordpress /bin/bash`
+`docker-compose exec --user user wordpress wp`
 
 To make that easier, you can create an alias in your ~/.bashrc file to something like:
 
 ~~~~
-alias dbash='docker-compose run wordpress /bin/bash'
+alias dcwp='docker-compose exec --user user wordpress wp'
 ~~~~
 
-Once in the docker shell, change to the Apache user with:
+Then use 'dcwp' instead of 'wp'
 
-`su user` (or whatever your username is)
-
-From there you can run any wp-cli commands except for `wp db _____`
+You can run any wp-cli commands except for 'db' operations, but 'search-replace' still works.
 
 ---
 
-**Note:** Only one instance can be run at a time. See [https://github.com/jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) if you'd like to explore running multiple.
+**Note:** Only one docker-compose instance can be run at a time unless you change ports and adjust virtual hosts accordingly. See [https://github.com/jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) if you'd like to explore some other possibilities of running multiple instances pumping through an nginx-proxy.
