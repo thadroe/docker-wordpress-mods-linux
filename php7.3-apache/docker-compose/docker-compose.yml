@@ -3,7 +3,7 @@ services:
   wordpress:
     depends_on:
       - mariadb
-    image: thadroe/docker-wordpress-mods-linux:php7.1
+    image: thadroe/docker-wordpress-mods-linux:php7.3
     restart: always
     volumes:
       - ./public:/var/www/html
